@@ -20,7 +20,7 @@ void display_sdl(void)
   assert(win);
   
   SDL_Renderer *renderer = SDL_CreateRenderer(win, 0, SDL_RENDERER_SOFTWARE);
-  SDL_Texture *screen = SDL_CreateTexture(renderer, SDLPIXELFORMAT_RGB888,
+  SDL_Texture *screen = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGB888,
 					  SDL_TEXTUREACCESS_STREAMING,
 					  SCREEN_WIDTH, SCREEN_HEIGHT);
   assert(screen);
@@ -39,3 +39,11 @@ void display_sdl(void)
   SDL_RenderClear(renderer);
   SDL_RenderCopy(renderer, screen, NULL, NULL);
   SDL_RenderPresent(renderer);
+  SDL_Delay(3000);
+
+  free(screen_pixels);
+  SDL_DestroyTexture(screen);
+  SDL_DestroyRenderer(renderer);
+  SDL_DestroyWindow(win);
+  SDL_Quit();
+}
