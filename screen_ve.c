@@ -49,6 +49,42 @@ void display_sdl(void)
   u32 *screen_pixels = (u32 *) calloc(displayWidth, displayHeight * sizeof(u32));   
   assert(screen_pixels);
 
+  BOOL complete = FALSE;
+
+  while (!complete)
+    {
+
+      SDL_Event event;
+      while (SDL_PollEvent(&event)) {
+
+	if (event.type == SDL_QUIT) {
+
+	  complete = TRUE;
+	  break;
+	}
+
+	if (event.type != SDL_KEYDOWN) {
+
+	  break;
+	}
+
+	SDL_Keycode code = event.key.keysym.sym;
+
+	switch (code)
+	  {
+
+	    case SDLK_ESCAPE:
+	      complete = TRUE;
+	        break;
+	    default:
+	        break;
+	  }
+
+	
+      }
+	  
+    }
+
   for (int i = 0; i < displayWidth * displayHeight; i++)
     {
       screen_pixels[i] = 0xFF000000;
