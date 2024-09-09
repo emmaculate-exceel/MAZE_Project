@@ -22,3 +22,7 @@ typedef Uint32 u32;
 typedef Uint64 u64;
 typedef Sint32 s32;
 typedef Sint64 s64;
+
+// Functions
+
+void display_sdl(void);
