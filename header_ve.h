@@ -1,6 +1,9 @@
 /**
- *  creating of standard header file and Macros
- * 
+ *  creating of standard header files
+ *  creating macros
+ *  creating variables
+ *  creating aliases
+ *  creating functions declarations
  **/
 
 #include <stdio.h>
@@ -26,3 +29,8 @@ typedef Sint64 s64;
 // Functions
 
 void display_sdl(void);
+
+// variable declarations
+
+extern int displayWidth;
+extern int displayHeight;
