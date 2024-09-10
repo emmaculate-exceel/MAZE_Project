@@ -10,6 +10,7 @@
  * handling display position, having the display centered to the center of the screen
  * regardless of the screen size .
  **/
+
 int displayWidth;
 int displayHeight;
 
@@ -59,16 +60,18 @@ void display_sdl(void)
 
 	if (event.type == SDL_QUIT) {
 
-	  complete = TRUE;
-	  break;
+	  complete = TRUE; // if the user closes the window close the program
+	  //break;
+	} else if (event.type != SDL_KEYDOWN) {
+	    SDL_Keycode code = event.key.keysym.sym;
+
+	    if (code == SDLK_ESCAPE) { // if esc key is pressed exit the wind program
+	    complete = TRUE;
+	    //break;
+	  }
 	}
 
-	if (event.type != SDL_KEYDOWN) {
-
-	  break;
-	}
-
-	SDL_Keycode code = event.key.keysym.sym;
+	/**SDL_Keycode code = event.key.keysym.sym;
 
 	switch (code)
 	  {
@@ -78,24 +81,36 @@ void display_sdl(void)
 	        break;
 	    default:
 	        break;
-	  }
+	  }**/
 
-	
       }
-	  
+    
+
+      for (int i = 0; i < displayWidth * displayHeight; i++)
+	{
+	  screen_pixels[i] = 0xFF000000;
+	}
+      SDL_UpdateTexture(screen, NULL, screen_pixels, displayWidth * sizeof(u32));
+      SDL_RenderClear(renderer);
+      SDL_RenderCopy(renderer, screen, NULL, NULL);
+      SDL_RenderPresent(renderer);
+      SDL_Delay(16);
     }
 
-  for (int i = 0; i < displayWidth * displayHeight; i++)
+  /**for (int i = 0; i < displayWidth * displayHeight; i++)
     {
       screen_pixels[i] = 0xFF000000;
     }
+  **/
 
+  /**
   SDL_UpdateTexture(screen, NULL, screen_pixels, displayWidth * sizeof(u32));
   SDL_RenderClear(renderer);
   SDL_RenderCopy(renderer, screen, NULL, NULL);
   SDL_RenderPresent(renderer);
   SDL_Delay(3000);
-
+  **/
+  
   free(screen_pixels);
   SDL_DestroyTexture(screen);
   SDL_DestroyRenderer(renderer);
