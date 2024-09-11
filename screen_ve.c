@@ -14,6 +14,16 @@
 int displayWidth;
 int displayHeight;
 
+void Fill_scrn(rect_size rect, u32 pixel_color, u32 *screen_pixels)
+{
+  for (int row = 0; row < rect.h; ++row)
+    {
+       for (int col = 0; col < rect.w; ++col)
+	{
+	  screen_pixels[(row + rect.y) *displayWidth + col + rect.x] = pixel_color;
+	}
+    }
+    
 
 void display_sdl(void)
 {
@@ -50,6 +60,9 @@ void display_sdl(void)
   u32 *screen_pixels = (u32 *) calloc(displayWidth, displayHeight * sizeof(u32));   
   assert(screen_pixels);
 
+  rect_size square = {0, 0, 30, 30};
+  u32 pixel_color =  SDL_MapRGB(format, 0, 0, 255);
+  Fill_scrn(square, pixel_color, screen_pixels);
   BOOL complete = FALSE;
 
   while (!complete)
