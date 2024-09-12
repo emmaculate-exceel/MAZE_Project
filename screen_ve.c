@@ -101,22 +101,24 @@ void display_sdl(void)
 	      complete = TRUE;
 	      break;
 	    case SDLK_UP:
-	      up = TRUE;
+	      up = event.type == SDL_KEYDOWN;
 	      break;
 	    case SDLK_DOWN:
-	      down = TRUE;
+	      down = event.type == SDL_KEYDOWN;
 	      break;
 	    case SDLK_LEFT:
-	      left = TRUE;
+	      left = event.type == SDL_KEYDOWN;
 	      break;
 	    case SDLK_RIGHT:
-	      right = TRUE;
+	      right = event.type == SDL_KEYDOWN;
 	      break;
 	    default:
 	      break;
 	  }
       }
 
+      memset(screen_pixels, 0, displayWidth * displayHeight * sizeof(u32));
+      
       if (up){
 	square.y += 1;
       }
@@ -129,6 +131,7 @@ void display_sdl(void)
       if (right){
 	square.x -= 1;
       }
+      Fill_scrn(square, 255, screen_pixels);
       /**
       for (int i = 0; i < displayWidth * displayHeight; i++)
 	{
