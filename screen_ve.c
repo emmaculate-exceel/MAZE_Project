@@ -60,11 +60,18 @@ void display_sdl(void)
   u32 *screen_pixels = (u32 *) calloc(displayWidth, displayHeight * sizeof(u32));   
   assert(screen_pixels);
 
-  rect_size square = {0, 0, 30, 30};
+  rect_size square = {0, 0, 100, 100};
+  square.x = (displayWidth-square.w)/2;
+  square.y = (displayHeight-square.h)/2;
   u32 pixel_color =  SDL_MapRGB(format, 0, 0, 255);
   Fill_scrn(square, pixel_color, screen_pixels);
   BOOL complete = FALSE;
 
+  BOOL up = FALSE;
+  BOOL down = FALSE;
+  BOOL left = FALSE;
+  BOOL right = FALSE;
+  
   while (!complete)
     {
 
@@ -74,14 +81,16 @@ void display_sdl(void)
 	if (event.type == SDL_QUIT) {
 
 	  complete = TRUE; // if the user closes the window close the program
-	  //break;
-	} /**else if (event.type != SDL_KEYDOWN) {
+	  break;
+	} /**
+	     
+	if (event.type != SDL_KEYDOWN) {
 	    SDL_Keycode code = event.key.keysym.sym;
 
 	    if (code == SDLK_ESCAPE) { // if esc key is pressed exit program
 	    complete = TRUE;
 	    //break;
-	    }**/
+	     }**/
 
 	SDL_Keycode code = event.key.keysym.sym;
 
@@ -90,17 +99,41 @@ void display_sdl(void)
 
 	    case SDLK_ESCAPE:
 	      complete = TRUE;
-	        break;
+	      break;
+	    case SDLK_UP:
+	      up = TRUE;
+	      break;
+	    case SDLK_DOWN:
+	      down = TRUE;
+	      break;
+	    case SDLK_LEFT:
+	      left = TRUE;
+	      break;
+	    case SDLK_RIGHT:
+	      right = TRUE;
+	      break;
 	    default:
-	        break;
+	      break;
 	  }
       }
-    
 
+      if (up){
+	square.y += 1;
+      }
+      if (down){
+	square.y -= 1;
+      }
+      if (left){
+	square.x += 1;
+      }
+      if (right){
+	square.x -= 1;
+      }
+      /**
       for (int i = 0; i < displayWidth * displayHeight; i++)
 	{
 	  screen_pixels[i] = 0xFF000000;
-	}
+	  }**/
       SDL_UpdateTexture(screen, NULL, screen_pixels, displayWidth * sizeof(u32));
       SDL_RenderClear(renderer);
       SDL_RenderCopy(renderer, screen, NULL, NULL);
