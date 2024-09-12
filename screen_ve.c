@@ -75,16 +75,15 @@ void display_sdl(void)
 
 	  complete = TRUE; // if the user closes the window close the program
 	  //break;
-	} else if (event.type != SDL_KEYDOWN) {
+	} /**else if (event.type != SDL_KEYDOWN) {
 	    SDL_Keycode code = event.key.keysym.sym;
 
 	    if (code == SDLK_ESCAPE) { // if esc key is pressed exit program
 	    complete = TRUE;
 	    //break;
-	  }
-	}
+	    }**/
 
-	/**SDL_Keycode code = event.key.keysym.sym;
+	SDL_Keycode code = event.key.keysym.sym;
 
 	switch (code)
 	  {
@@ -94,8 +93,7 @@ void display_sdl(void)
 	        break;
 	    default:
 	        break;
-	  }**/
-
+	  }
       }
     
 
