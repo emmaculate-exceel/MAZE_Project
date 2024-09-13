@@ -7,6 +7,41 @@
  *
  */
 
+void save_to_file(const char* filename, const char* text) {
+    FILE* file = fopen(filename, "w");
+    if (!file) {
+        perror("Failed to open file for writing");
+        return;
+    }
+    fwrite(text, sizeof(char), strlen(text), file);
+    fclose(file);
+}
+
+char* load_from_file(const char* filename) {
+    FILE* file = fopen(filename, "r");
+    if (!file) {
+        perror("Failed to open file for reading");
+        return NULL;
+    }
+
+    char* buffer = malloc(MAX_BUFFER_SIZE);
+    if (!buffer) {
+        perror("Failed to allocate memory");
+        fclose(file);
+        return NULL;
+    }
+
+    size_t size = fread(buffer, sizeof(char), MAX_BUFFER_SIZE - 1, file);
+    if (size == 0) {
+        free(buffer);
+        fclose(file);
+        return NULL;
+    }
+
+    buffer[size] = '\0'; // Null-terminate the string
+    fclose(file);
+    return buffer;
+}
 
 void render_text(const char* text, SDL_Renderer* renderer, SDL_Texture* screen_texture){
   SDL_Surface* textSurface = TTF_RenderText_Solid(font, text, textColor);
