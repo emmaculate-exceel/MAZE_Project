@@ -1,5 +1,6 @@
 #ifndef HEADER_VE_H
 #define HEADER_VE_H
+
 /**
  *  creating of standard header files
  *  creating macros
@@ -8,6 +9,9 @@
  *  creating functions declarations
  **/
 
+#include <SDL2/SDL_ttf.h>
+#include <string.h>
+#include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <SDL2/SDL.h>
@@ -20,6 +24,7 @@
 #define FALSE 0
 #define SCREEN_WIDTH 1027
 #define SCREEN_HEIGHT 776
+#define MAX_BUFFER_SIZE 1024
 
 // aliases
 
@@ -37,11 +42,16 @@ typedef struct {
 // Functions
 
 void display_sdl(void);
+void Fill_scrn(rect_size rect, u32 pixel_color, u32 *screen_pixels);
+void render_text(const char* text, SDL_Renderer* renderer, SDL_Texture* screen_text);
+void save_to_file(const char* filename, const char* text);
+char* load_from_file(const char* filename);
 
 // variable declarations
 
 extern int displayWidth;
 extern int displayHeight;
-
+extern TTF_Font* font;
+extern SDL_Color textColor;
 
 #endif /* HEADER_VE_H */
