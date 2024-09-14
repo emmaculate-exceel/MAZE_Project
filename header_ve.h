@@ -43,9 +43,12 @@ typedef struct {
 
 void display_sdl(void);
 void Fill_scrn(rect_size rect, u32 pixel_color, u32 *screen_pixels);
-void render_text(const char* text, SDL_Renderer* renderer, SDL_Texture* screen_text);
+void render_text(const char* text, SDL_Renderer* renderer);
 void save_to_file(const char* filename, const char* text);
 char* load_from_file(const char* filename);
+void handle_input(SDL_Event* event);
+void update_text(void);
+void render_cursor(SDL_Renderer* renderer, int x, int y);
 
 // variable declarations
 
