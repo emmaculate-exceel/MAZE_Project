@@ -56,5 +56,7 @@ extern int displayWidth;
 extern int displayHeight;
 extern TTF_Font* font;
 extern SDL_Color textColor;
-
+int cursorX = 0;
+int cursorY = 0;
+int scrollOffset = 0;
 #endif /* HEADER_VE_H */
