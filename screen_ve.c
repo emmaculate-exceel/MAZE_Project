@@ -57,13 +57,13 @@ void display_sdl(void)
   assert(win);
   
   SDL_Renderer *renderer = SDL_CreateRenderer(win, 0, SDL_RENDERER_SOFTWARE);
-  SDL_PixelFormat *format = SDL_AllocFormat(SDL_PIXELFORMAT_RGB888);
+  //SDL_PixelFormat *format = SDL_AllocFormat(SDL_PIXELFORMAT_RGB888);
   SDL_Texture *screen = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGB888,
 					  SDL_TEXTUREACCESS_STREAMING,
 					  displayWidth, displayHeight);
   assert(screen);
-  char buffer[256] = "Hello, VE!";
-  BOOL complete = FALSE;
+  //char buffer[256] = "Hello, VE!";
+  //BOOL complete = FALSE;
   
   
   font = TTF_OpenFont("/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf", 15);
@@ -79,16 +79,16 @@ void display_sdl(void)
  
   SDL_SetRenderDrawColor(renderer, 0xff, 0xff, 0xff, 0xff);
   SDL_RenderClear(renderer);
-  u32 *screen_pixels = (u32 *) calloc(displayWidth, displayHeight * sizeof(u32));   
+  u32 *screen_pixels = (u32 *) calloc(displayWidth * displayHeight, sizeof(u32));   
   assert(screen_pixels);
 
   rect_size square = {0, 0, 100, 100};
-  square.x = (displayWidth-square.w)/2;
-  square.y = (displayHeight-square.h)/2;
-  u32 pixel_color =  SDL_MapRGB(format, 0, 0, 255);
+  square.x = (displayWidth-square.w) / 2;
+  square.y = (displayHeight-square.h) / 2;
+  u32 pixel_color =  SDL_MapRGB(SDL_AllocFormat(SDL_PIXELFORMAT_RGB888), 0, 0, 255);
   Fill_scrn(square, pixel_color, screen_pixels);
   //BOOL complete = FALSE;
-
+  BOOL complete = FALSE;
   BOOL up = FALSE;
   BOOL down = FALSE;
   BOOL left = FALSE;
@@ -104,8 +104,9 @@ void display_sdl(void)
 
 	  complete = TRUE; // if the user closes the window close the program
 	  break;
-	} /**
-	     
+	}
+	handle_input(&event);
+	/**     
 	if (event.type == SDL_KEYDOWN) {
 	    SDL_Keycode code = event.key.keysym.sym;
 
@@ -174,8 +175,8 @@ void display_sdl(void)
 	  }**/
       SDL_UpdateTexture(screen, NULL, screen_pixels, displayWidth * sizeof(u32));
       SDL_RenderClear(renderer);
-
-      render_text(buffer, renderer, screen);
+      render_text(buffer, renderer);
+      render_cursor(renderer, cursorX, cursorY);
       SDL_RenderCopy(renderer, screen, NULL, NULL);
       SDL_RenderPresent(renderer);
       SDL_Delay(16);
@@ -199,5 +200,6 @@ void display_sdl(void)
   SDL_DestroyTexture(screen);
   SDL_DestroyRenderer(renderer);
   SDL_DestroyWindow(win);
+  TTF_Quit();
   SDL_Quit();
 }
