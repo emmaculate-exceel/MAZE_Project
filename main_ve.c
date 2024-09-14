@@ -72,7 +72,7 @@ void render_text(const char* text, SDL_Renderer* renderer){
   free(text_copy);
 }
 
-void render_cursor(SDL_Render* renderer, int x, int y) {
+void render_cursor(SDL_Renderer* renderer, int x, int y) {
   SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255); //black backgroud color
   SDL_RenderDrawLine(renderer, x, y, x, y + 20); //adjusting cursor as needed
 }
@@ -80,7 +80,7 @@ void render_cursor(SDL_Render* renderer, int x, int y) {
 
 void handle_input(SDL_Event* event) {
   if (event->type == SDL_TEXTINPUT) {
-    strncat(buffer, event->text.text, sizof(buffer) - strlen(buffer) -1);
+    strncat(buffer, event->text.text, sizeof(buffer) - strlen(buffer) -1);
   }else if (event->type == SDL_KEYDOWN) {
     switch (event->key.keysym.sym) {
       case SDLK_BACKSPACE:
