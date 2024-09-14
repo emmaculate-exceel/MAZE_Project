@@ -76,6 +76,55 @@ void render_cursor(SDL_Render* renderer, int x, int y) {
   SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255); //black backgroud color
   SDL_RenderDrawLine(renderer, x, y, x, y + 20); //adjusting cursor as needed
 }
+
+
+void handle_input(SDL_Event* event) {
+  if (event->type == SDL_TEXTINPUT) {
+    strncat(buffer, event->text.text, sizof(buffer) - strlen(buffer) -1);
+  }else if (event->type == SDL_KEYDOWN) {
+    switch (event->key.keysym.sym) {
+      case SDLK_BACKSPACE:
+	if (strlen(buffer) > 0) buffer [strlen(buffer) - 1] = '\0';//last char
+	break;
+      case SDLK_DELETE:
+	////handle delete key
+	break;
+      case SDLK_UP:
+	scrollOffset += 10;
+	break;
+      case SDLK_DOWN:
+        scrollOffset -= 10;
+	break;
+      case SDLK_LEFT:
+        ///handle cusor left movement
+	break;
+      case SDLK_RIGHT:
+        //// handle cursor right movement
+	break;
+      case SDLK_s:
+        save_to_file("output.txt", buffer);
+        break;
+    case SDLK_o:
+      {
+	char* loaded_text = load_from_file("input.txt");
+	if (loaded_text) {
+	  strncpy(buffer, loaded_text, sizeof(buffer) - 1);
+	  buffer[sizeof(buffer) - 1] = '\0';//null termination string
+	  free(loaded_text);
+	}
+      }
+      break;
+    }
+  }
+}
+
+void update_text() {
+  ///// update my text and cursor position
+
+}
+
+
+	    
 /**  
   SDL_Surface* textSurface = TTF_RenderText_Solid(font, text, textColor);
   if (!textSurface) {
