@@ -59,7 +59,7 @@ void render_text(const char* text, SDL_Renderer* renderer){
     if (textSurface) {
       SDL_Texture* textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
       if (textTexture) {
-	SDL_Rect textRect = {0, y, textSurface->w, TextSurface->h};
+	SDL_Rect textRect = {0, y, textSurface->w, textSurface->h};
 	SDL_RenderCopy(renderer, textTexture, NULL, &textRect);
 	SDL_DestroyTexture(textTexture);
       }
