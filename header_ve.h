@@ -58,6 +58,6 @@ extern TTF_Font* font;
 extern SDL_Color textColor;
 extern int cursorX;
 extern int cursorY;
-extern int scrollOffset0;
+extern int scrollOffset;
 extern char buffer[MAX_BUFFER_SIZE];
 #endif /* HEADER_VE_H */
