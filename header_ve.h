@@ -56,7 +56,8 @@ extern int displayWidth;
 extern int displayHeight;
 extern TTF_Font* font;
 extern SDL_Color textColor;
-int cursorX = 0;
-int cursorY = 0;
-int scrollOffset = 0;
+//extern cursorX = 0;
+//extern cursorY = 0;
+//extern scrollOffset = 0;
+char buffer[MAX_BUFFER_SIZE];
 #endif /* HEADER_VE_H */
