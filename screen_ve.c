@@ -10,6 +10,9 @@
  * handling display position, having the display centered to the center of the screen
  * regardless of the screen size .
  **/
+char buffer[MAX_BUFFER_SIZE] = "VE!";
+int cursorX = 0;
+int cursorY = 0;
 
 SDL_Color textColor = {255, 255, 255, 255}; //white text color
 TTF_Font* font = NULL;
