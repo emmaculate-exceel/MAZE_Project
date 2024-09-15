@@ -116,20 +116,83 @@ void display_sdl(void)
 
       SDL_Event event;
       while (SDL_PollEvent(&event)) {
+	switch (event.type) {
+          case SDL_QUIT:
+            complete = TRUE;
+            break;
+          case SDL_KEYDOWN:
+            switch (event.key.keysym.sym) {
+                case SDLK_ESCAPE:
+                    complete = TRUE;
+                    break;
+                case SDLK_UP:
+                    up = TRUE;
+                    break;
+                case SDLK_DOWN:
+                    down = TRUE;
+                    break;
+                case SDLK_LEFT:
+                    left = TRUE;
+                    break;
+                case SDLK_RIGHT:
+                    right = TRUE;
+                    break;
+                case SDLK_s:
+                    save_to_file("output.txt", buffer);
+                    break;
+                case SDLK_o:
+                    {
+                        char* loaded_text = load_from_file("input.txt");
+                        if (loaded_text) {
+                            strncpy(buffer, loaded_text, sizeof(buffer) - 1);
+                            buffer[sizeof(buffer) - 1] = '\0'; // Ensure null termination
+                            free(loaded_text);
+                        }
+                    }
+                    break;
+                default:
+                    break;
+            }
+              break;
+          case SDL_KEYUP:
+            switch (event.key.keysym.sym) {
+              case SDLK_UP:
+                up = FALSE;
+                break;
+                case SDLK_DOWN:
+                  down = FALSE;
+                  break;
+                case SDLK_LEFT:
+                  left = FALSE;
+                  break;
+                case SDLK_RIGHT:
+                  right = FALSE;
+                  break;
+                default:
+                  break;
+            }
+            break;
+          default:
+            break;
+        }
+      }
+
+      /**
+      while (SDL_PollEvent(&event)) {
 
 	if (event.type == SDL_QUIT) {
 
 	  complete = TRUE; // if the user closes the window close the program
 	  break;
 	}
-	/**     
+  
 	if (event.type == SDL_KEYDOWN) {
 	    SDL_Keycode code = event.key.keysym.sym;
 
 	    if (code == SDLK_ESCAPE) { // if esc key is pressed exit program
 	    complete = TRUE;
 	    //break;
-	     }**/
+	     }
 
 	SDL_Keycode code = event.key.keysym.sym;
 
@@ -166,7 +229,7 @@ void display_sdl(void)
 	      break;
 	    default:
 	      break;
-	  }
+	  } **/
 	handle_input(&event);
       }
 
