@@ -56,13 +56,29 @@ void display_sdl(void)
 				     SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
 				     displayWidth, displayHeight, SDL_WINDOW_SHOWN);
   assert(win);
-  
+
+  if (!win) {
+    printf("failed to initialize widow: %s\n", SDL_GetError());
+    TTF_Quit();
+    SDL_Quit();
+    return;
+  }
+    
   SDL_Renderer *renderer = SDL_CreateRenderer(win, 0, SDL_RENDERER_SOFTWARE);
   //SDL_PixelFormat *format = SDL_AllocFormat(SDL_PIXELFORMAT_RGB888);
   SDL_Texture *screen = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGB888,
 					  SDL_TEXTUREACCESS_STREAMING,
 					  displayWidth, displayHeight);
   assert(screen);
+
+  if (!renderer) {
+    printf("render failed to initialize %s\n", SDL_GetError());
+    SDL_DestroyWindow(win);
+    TTF_Quit();
+    SDL_Quit();
+    return;
+  }
+    
   //char buffer[256] = "Hello, VE!";
   //BOOL complete = FALSE;
   
@@ -106,7 +122,6 @@ void display_sdl(void)
 	  complete = TRUE; // if the user closes the window close the program
 	  break;
 	}
-	handle_input(&event);
 	/**     
 	if (event.type == SDL_KEYDOWN) {
 	    SDL_Keycode code = event.key.keysym.sym;
@@ -152,6 +167,7 @@ void display_sdl(void)
 	    default:
 	      break;
 	  }
+	handle_input(&event);
       }
 
       memset(screen_pixels, 0, displayWidth * displayHeight * sizeof(u32));
