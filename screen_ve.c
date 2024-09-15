@@ -10,9 +10,9 @@
  * handling display position, having the display centered to the center of the screen
  * regardless of the screen size .
  **/
-char buffer[MAX_BUFFER_SIZE] = "VE!";
-int cursorX = 0;
-int cursorY = 0;
+//char buffer[MAX_BUFFER_SIZE] = "VE!";
+//int cursorX = 0;
+//int cursorY = 0;
 
 SDL_Color textColor = {255, 255, 255, 255}; //white text color
 TTF_Font* font = NULL;
@@ -30,12 +30,9 @@ void Fill_scrn(rect_size rect, u32 pixel_color, u32 *screen_pixels)
     }  
 }
 void display_sdl(void)
-{
-
-  
+{  
   if (SDL_Init(SDL_INIT_VIDEO) < 0) {
       printf("SDL : Unable to initialize SDL_Error: %s\n", SDL_GetError());
-
       return;
     }
 
@@ -48,6 +45,7 @@ void display_sdl(void)
   SDL_DisplayMode displayMode;
   if (SDL_GetCurrentDisplayMode(0, &displayMode) != 0) {
       printf("Unable to get Display! SDL_Error: %s\n", SDL_GetError());
+      TTF_Quit();
       SDL_Quit();
       return;
   }
