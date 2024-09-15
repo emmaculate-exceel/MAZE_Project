@@ -8,8 +8,8 @@
  */
 
 char buffer[MAX_BUFFER_SIZE] = "VE!";
-//int cursorX = 0, cursorY = 0;
-//int scrollOffset = 0;
+int cursorX = 0, cursorY = 0;
+int scrollOffset = 0;
 
 void save_to_file(const char* filename, const char* text) {
     FILE* file = fopen(filename, "w");
