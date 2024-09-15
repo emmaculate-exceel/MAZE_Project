@@ -64,7 +64,7 @@ void display_sdl(void)
     return;
   }
     
-  SDL_Renderer *renderer = SDL_CreateRenderer(win, 0, SDL_RENDERER_SOFTWARE);
+  SDL_Renderer *renderer = SDL_CreateRenderer(win, -1, SDL_RENDERER_SOFTWARE);
   //SDL_PixelFormat *format = SDL_AllocFormat(SDL_PIXELFORMAT_RGB888);
   SDL_Texture *screen = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGB888,
 					  SDL_TEXTUREACCESS_STREAMING,
