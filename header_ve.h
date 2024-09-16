@@ -9,12 +9,12 @@
  *  creating functions declarations
  **/
 
+#include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 #include <string.h>
 #include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <SDL2/SDL.h>
 #include <assert.h>
 
 // macros
@@ -39,7 +39,17 @@ typedef struct {
   int w;
 }rect_size;
 
-// Functions
+// SDL Functions
+/**
+void free(void *ptr);
+void TTF_CloseFont(TTF_Font *font);
+void SDL_DestroyTexture(SDL_Texture *texture);
+void SDL_DestroyRenderer(SDL_Renderer *renderer);
+void SDL_DestroyWindow(SDL_Window *window);
+void TTF_Quit(void);
+void SDL_Quit(void);
+**/
+///// custom Functions ///////////////
 
 void display_sdl(void);
 void Fill_scrn(rect_size rect, u32 pixel_color, u32 *screen_pixels);
