@@ -73,76 +73,120 @@ void render_text(const char* text, SDL_Renderer* renderer){
 }
 
 void render_cursor(SDL_Renderer* renderer, int x, int y) {
-  SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255); //black backgroud color
+  SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255); //color black
+  SDL_Rect cursorRect = {x, y, 2, 20}; /// 2 pixel wide and 20 pixel tall
+  SDL_RenderFillRect(renderer, &cursorRect);
   SDL_RenderDrawLine(renderer, x, y, x, y + 20); //adjusting cursor as needed
 }
+/**
+void handle_input(SDL_Event* event) {
+    if (event->type == SDL_TEXTINPUT) {
+        // Insert text at the cursor position
+        size_t len = strlen(buffer);
+        size_t text_len = strlen(event->text.text);
 
+        if (len + text_len < MAX_BUFFER_SIZE) {
+            memmove(buffer + cursorX + text_len, buffer + cursorX, len - cursorX + 1);
+            memcpy(buffer + cursorX, event->text.text, text_len);
+            cursorX += text_len;
+        }
+    } else if (event->type == SDL_KEYDOWN) {
+        switch (event->key.keysym.sym) {
+            case SDLK_BACKSPACE:
+                if (cursorX > 0) {
+                    memmove(buffer + cursorX - 1, buffer + cursorX, strlen(buffer) - cursorX + 1);
+                    cursorX--;
+                }
+                break;
+            case SDLK_DELETE:
+                if (cursorX < strlen(buffer)) {
+                    memmove(buffer + cursorX, buffer + cursorX + 1, strlen(buffer) - cursorX);
+                }
+                break;
+            case SDLK_LEFT:
+                if (cursorX > 0) cursorX--;
+                break;
+            case SDLK_RIGHT:
+                if (cursorX < strlen(buffer)) cursorX++;
+                break;
+            case SDLK_UP:
+                scrollOffset += 10;  // Handle scrolling
+                break;
+            case SDLK_DOWN:
+                scrollOffset -= 10;  // Handle scrolling
+                break;
+            case SDLK_s:
+                save_to_file("output.txt", buffer);
+                break;
+            case SDLK_o:
+	      {
+                    char* loaded_text = load_from_file("input.txt");
+                    if (loaded_text) {
+                        strncpy(buffer, loaded_text, sizeof(buffer) - 1);
+                        buffer[sizeof(buffer) - 1] = '\0';  // Ensure null termination
+                        free(loaded_text);
+                    }
+                }
+                break;
+        }
+    }
+} **/
 
 void handle_input(SDL_Event* event) {
-  if (event->type == SDL_TEXTINPUT) {
-    strncat(buffer, event->text.text, sizeof(buffer) - strlen(buffer) -1);
-  }else if (event->type == SDL_KEYDOWN) {
-    switch (event->key.keysym.sym) {
-      case SDLK_BACKSPACE:
-	if (strlen(buffer) > 0) buffer [strlen(buffer) - 1] = '\0';//last char
-	break;
-      case SDLK_DELETE:
-	////handle delete key
-	break;
-      case SDLK_UP:
-	scrollOffset += 10;
-	break;
-      case SDLK_DOWN:
-        scrollOffset -= 10;
-	break;
-      case SDLK_LEFT:
-        ///handle cusor left movement
-	break;
-      case SDLK_RIGHT:
-        //// handle cursor right movement
-	break;
-      case SDLK_s:
-        save_to_file("output.txt", buffer);
-        break;
-    case SDLK_o:
-      {
-	char* loaded_text = load_from_file("input.txt");
-	if (loaded_text) {
-	  strncpy(buffer, loaded_text, sizeof(buffer) - 1);
-	  buffer[sizeof(buffer) - 1] = '\0';//null termination string
-	  free(loaded_text);
-	}
-      }
-      break;
+    if (event->type == SDL_TEXTINPUT) {
+        size_t len = strlen(buffer);
+        size_t text_len = strlen(event->text.text);
+
+        if (len + text_len < MAX_BUFFER_SIZE - 1) { // -1 for null terminator
+            memmove(buffer + cursorX + text_len, buffer + cursorX, len - cursorX + 1);
+            memcpy(buffer + cursorX, event->text.text, text_len);
+            cursorX += text_len;
+            buffer[MAX_BUFFER_SIZE - 1] = '\0'; // Ensure null termination
+        }
+    } else if (event->type == SDL_KEYDOWN) {
+        switch (event->key.keysym.sym) {
+            case SDLK_BACKSPACE:
+                if (cursorX > 0) {
+                    memmove(buffer + cursorX - 1, buffer + cursorX, strlen(buffer) - cursorX + 1);
+                    cursorX--;
+                }
+                break;
+            case SDLK_DELETE:
+                if (cursorX < strlen(buffer)) {
+                    memmove(buffer + cursorX, buffer + cursorX + 1, strlen(buffer) - cursorX);
+                }
+                break;
+            case SDLK_LEFT:
+                if (cursorX > 0) cursorX--;
+                break;
+            case SDLK_RIGHT:
+                if (cursorX < strlen(buffer)) cursorX++;
+                break;
+            case SDLK_UP:
+                scrollOffset += 10;  // Handle scrolling
+                break;
+            case SDLK_DOWN:
+                scrollOffset -= 10;  // Handle scrolling
+                break;
+            case SDLK_s:
+                save_to_file("output.txt", buffer);
+                break;
+            case SDLK_o:
+                {
+                    char* loaded_text = load_from_file("input.txt");
+                    if (loaded_text) {
+                        strncpy(buffer, loaded_text, sizeof(buffer) - 1);
+                        buffer[sizeof(buffer) - 1] = '\0';  // Ensure null termination
+                        free(loaded_text);
+                    }
+                }
+                break;
+            default:
+                break;
+        }
     }
-  }
 }
 
-void update_text() {
-  ///// update my text and cursor position
-
-}
-
-
-	    
-/**  
-  SDL_Surface* textSurface = TTF_RenderText_Solid(font, text, textColor);
-  if (!textSurface) {
-    printf("Failed to enable surface: %s\n", TTF_GetError());
-    return;
-  }
-
-  SDL_Texture* textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
-  if (!textTexture) {
-    printf("Failed to enable texture: %s\n", SDL_GetError());
-    SDL_FreeSurface(textSurface);
-    return;
-  }
-  SDL_RenderCopy(renderer, textTexture, NULL, NULL);
-  SDL_DestroyTexture(textTexture);
-  SDL_FreeSurface(textSurface);
-}
-**/
 
 int main(int argc, char *argv[])
 {

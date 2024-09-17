@@ -40,19 +40,10 @@ typedef struct {
 }rect_size;
 
 // SDL Functions
-/**
-void free(void *ptr);
-void TTF_CloseFont(TTF_Font *font);
-void SDL_DestroyTexture(SDL_Texture *texture);
-void SDL_DestroyRenderer(SDL_Renderer *renderer);
-void SDL_DestroyWindow(SDL_Window *window);
-void TTF_Quit(void);
-void SDL_Quit(void);
-**/
 ///// custom Functions ///////////////
 
 void display_sdl(void);
-void Fill_scrn(rect_size rect, u32 pixel_color, u32 *screen_pixels);
+//void Fill_scrn(rect_size rect, u32 pixel_color, u32 *screen_pixels);
 void render_text(const char* text, SDL_Renderer* renderer);
 void save_to_file(const char* filename, const char* text);
 char* load_from_file(const char* filename);
@@ -70,4 +61,6 @@ extern int cursorX;
 extern int cursorY;
 extern int scrollOffset;
 extern char buffer[MAX_BUFFER_SIZE];
-#endif /* HEADER_VE_H */
+
+
+#endif // HEADER_VE_H
