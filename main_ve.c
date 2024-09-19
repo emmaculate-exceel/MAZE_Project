@@ -152,12 +152,12 @@ void handle_input(SDL_Event* event, const char* filename) {
             case SDLK_RIGHT:
                 if (cursorX < strlen(buffer)) cursorX++;
                 break;
-            case SDLK_UP:
+		/**case SDLK_UP:
                 scrollOffset += 10;  // Handle scrolling
                 break;
             case SDLK_DOWN:
                 scrollOffset -= 10;  // Handle scrolling
-                break;
+                break; **/
             case SDLK_s:
                 save_to_file(filename, buffer);
                 break;
