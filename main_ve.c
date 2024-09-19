@@ -48,49 +48,6 @@ char* load_from_file(const char* filename) {
     return buffer;
 }
 
-/**void render_text(const char* text, SDL_Renderer* renderer){
-  char* text_copy = strdup(text);
-  char* line = strtok(text_copy, "\n");
-  int y = -scrollOffset;
-  int windowWidth = displayWidth; // using window to define width
-
-  while (line != NULL) {
-    char* lineStart = line;
-    char* spacePos;
-    int lineWidth = 0;
-
-    while (line != NULL && lineWidth < windowWidth) {
-      
-      SDL_Surface* textSurface = TTF_RenderText_Solid(font, line, textColor);
-      if (textSurface) {
-	lineWidth = textSurface->w;
-        SDL_Texture* textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
-        if (textTexture) {
-	  SDL_Rect textRect = {0, y, textSurface->w, textSurface->h};
-	  SDL_RenderCopy(renderer, textTexture, NULL, &textRect);
-	  SDL_DestroyTexture(textTexture);
-        }
-
-      SDL_FreeSurface(textSurface);
-
-      if (lineWidth > windowWidth) {
-	spacePos = strrchr(lineStart, ' ');
-	if (spacePos == NULL) {
-	  spacePos = lineStart + strlen(lineStart);//take all line if no space(s)
-	}
-	*spacePos = '\0'; // End the line at space
-      }else {
-	spacePos = lineStart + strlen(lineStart); // Move to the end of line
-      }
-      
-      lineStart = spacePos + 1; // move to the next line
-      }
-      y += 20; //adjust the height 
-    }
-    line = strtok(NULL, "\n");
-  }
-  free(text_copy);
-  }**/
 void render_text(const char* text, SDL_Renderer* renderer) {
     char* text_copy = strdup(text);
     char* line = strtok(text_copy, "\n");
