@@ -122,7 +122,7 @@ void render_cursor(SDL_Renderer* renderer, int x, int y) {
   SDL_RenderDrawLine(renderer, x, y, x, y + 20); //adjusting cursor as needed
 }
 
-void handle_input(SDL_Event* event) {
+void handle_input(SDL_Event* event, const char* filename) {
     if (event->type == SDL_TEXTINPUT) {
         size_t len = strlen(buffer);
         size_t text_len = strlen(event->text.text);
@@ -159,7 +159,7 @@ void handle_input(SDL_Event* event) {
                 scrollOffset -= 10;  // Handle scrolling
                 break;
             case SDLK_s:
-                save_to_file("output.txt", buffer);
+                save_to_file(filename, buffer);
                 break;
             case SDLK_o:
                 {
@@ -180,8 +180,25 @@ void handle_input(SDL_Event* event) {
 
 int main(int argc, char *argv[])
 {
+  ///// checking if a filename is provide as an argument
+  if (argc < 2) {
+    fprintf(stderr, "Usage: %s <filename>\n", argv[0]);
+    return (1);
+  }
+
+  /// loading content from a file or specific file
+  char* filename = argv[1];
+  char* loaded_text = load_from_file(filename);
+
+  if (loaded_text) {
+    strncpy(buffer, loaded_text, sizeof(buffer) -1);
+    buffer[sizeof(buffer) -1] = '\0';/// Ensuring Null termination
+    free(loaded_text);
+  } else {
+    fprintf(stderr, "No content to load from %s\n", filename);
+  }
   
-  display_sdl();
+  display_sdl(filename);
   
   return 0;
 }
