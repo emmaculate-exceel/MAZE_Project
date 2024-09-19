@@ -18,7 +18,7 @@ TTF_Font* font = NULL;
 int displayWidth;
 int displayHeight;
 
-void display_sdl(void) {
+void display_sdl(const char* filename) {
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
         printf("SDL: Unable to initialize SDL_Error: %s\n", SDL_GetError());
         return;
@@ -80,7 +80,7 @@ void display_sdl(void) {
     while (!complete) {
         SDL_Event event;
         while (SDL_PollEvent(&event)) {
-            handle_input(&event);
+	  handle_input(&event, filename);
             if (event.type == SDL_QUIT || (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE)) {
                 complete = TRUE;
             }
