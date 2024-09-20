@@ -7,6 +7,8 @@
  *
  */
 
+char savePrompt[50] = ""; ///container for the prompt
+int showPrompt = 0; ///flag for the visibility of prompt
 char buffer[MAX_BUFFER_SIZE] = "VE!";
 int cursorX = 0, cursorY = 0;
 int scrollOffset = 0;
@@ -116,7 +118,7 @@ void render_text(const char* text, SDL_Renderer* renderer) {
 
 
 void render_cursor(SDL_Renderer* renderer, int x, int y) {
-  SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255); //color black
+  SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255); //color black
   SDL_Rect cursorRect = {x, y, 2, 20}; /// 2 pixel wide and 20 pixel tall
   SDL_RenderFillRect(renderer, &cursorRect);
   SDL_RenderDrawLine(renderer, x, y, x, y + 20); //adjusting cursor as needed
@@ -161,6 +163,8 @@ void handle_input(SDL_Event* event, const char* filename) {
             case SDLK_s:
 	      if (event->key.keysym.mod && KMOD_CTRL) {//save using Ctrl + s
                 save_to_file(filename, buffer);
+		snprintf(savePrompt, sizeof(savePrompt), "File saved!");//save prompt
+		showPrompt = 60; // display prompt message
 	      }
                 break;
             case SDLK_o:
