@@ -159,7 +159,9 @@ void handle_input(SDL_Event* event, const char* filename) {
                 scrollOffset -= 10;  // Handle scrolling
                 break; **/
             case SDLK_s:
+	      if (event->key.keysym.mod && KMOD_CTRL) {//save using Ctrl + s
                 save_to_file(filename, buffer);
+	      }
                 break;
             case SDLK_o:
                 {
