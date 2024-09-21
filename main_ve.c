@@ -27,7 +27,7 @@ void save_to_file(const char* filename, const char* text) {
 char* load_from_file(const char* filename) {
     FILE* file = fopen(filename, "r");
     if (!file) {
-        perror("Failed to open file for reading");
+      fprintf(stderr, "Failed to open file for reading: %s\n",filename);
         return NULL;
     }
 
@@ -119,7 +119,7 @@ void render_text(const char* text, SDL_Renderer* renderer) {
 
 void render_cursor(SDL_Renderer* renderer, int x, int y) {
   SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255); //color black
-  SDL_Rect cursorRect = {x, y, 2, 20}; /// 2 pixel wide and 20 pixel tall
+  SDL_Rect cursorRect = {x, y, 5, 25}; /// 2 pixel wide and 20 pixel tall
   SDL_RenderFillRect(renderer, &cursorRect);
   SDL_RenderDrawLine(renderer, x, y, x, y + 20); //adjusting cursor as needed
 }
