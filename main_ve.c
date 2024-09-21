@@ -167,7 +167,7 @@ void handle_input(SDL_Event* event, const char* filename) {
 		showPrompt = 60; // display prompt message
 	      }
                 break;
-            case SDLK_o:
+		/**case SDLK_o:
                 {
                     char* loaded_text = load_from_file("input.txt");
                     if (loaded_text) {
@@ -176,7 +176,7 @@ void handle_input(SDL_Event* event, const char* filename) {
                         free(loaded_text);
                     }
                 }
-                break;
+                break;**/
             default:
                 break;
         }
