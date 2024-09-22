@@ -9,22 +9,22 @@ void text_editor(const char *filename) {
     int ch;
     size_t pos = 0;
 
-    // Initialize ncurses
+    ////// Initializing ncurses
     initscr();
     cbreak(); // Disable line buffering
     noecho(); // Don't echo user input
     keypad(stdscr, TRUE); // Enable special keys
 
-    // Create a window for the editor
+    //// Creating a window for the editor
     WINDOW *editor_win = newwin(LINES - 1, COLS, 0, 0);
     box(editor_win, 0, 0);
-    mvwprintw(editor_win, 0, 2, " Simple Text Editor ");
+    mvwprintw(editor_win, 0, 2, "VE Terminal Text Editor Version 0.02");
     wrefresh(editor_win);
 
     mvwprintw(editor_win, 1, 1, "Editing file: %s", filename);
     wrefresh(editor_win);
 
-    // Main editing loop
+    ///// Main editing loop
     while (1) {
         mvwprintw(editor_win, 2, 1, "%s", buffer);
         wmove(editor_win, 2, pos + 1); // Move cursor to position
@@ -37,11 +37,14 @@ void text_editor(const char *filename) {
         } else if (ch == 127) { // Backspace
             if (pos > 0) {
                 buffer[--pos] = '\0';
-            }
+			}
         } else if (ch == KEY_LEFT) {
+		  //////// left key
             if (pos > 0) pos--;
         } else if (ch == KEY_RIGHT) {
+		  //////// right key
             if (pos < strlen(buffer)) pos++;
+			else if 
         } else {
             if (pos < MAX_BUFFER_SIZE - 1) {
                 buffer[pos++] = ch;
@@ -50,10 +53,10 @@ void text_editor(const char *filename) {
         }
     }
 
-    // End ncurses mode
+    //// End ncurses mode
     endwin();
 
-    // Save the buffer back to the file
+    //// Save the buffer back to the file
     FILE *file = fopen(filename, "w");
     if (file) {
         fwrite(buffer, sizeof(char), pos, file);
