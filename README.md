@@ -5,10 +5,12 @@ VE is a terminal text editor for the Portfolio project using C programming langa
 --- indicate what is not included or will be included in the future
 === indicate a section of the what is being discussed
 
+
 =================================================================================================================================================================================================================================================================================
 
 
 Project Title: "VE: A Lightweight Text Editor built in C"
+
 
 Introduction/Overview:
 Brief Summary: VE is a lightweight, terminal-based text editor built using the C programming language. The project aims to create a simple, fast, and efficient text editor that supports basic text editing functionalities, making it suitable for quick editing tasks directly from the terminal. The editor is designed with performance and minimalism in mind, catering to users who prefer a command-line interface (CLI) over graphical user interfaces (GUIs).
@@ -22,14 +24,17 @@ Objectives: A very minimal and easy to use terminal text editor .
 Primary Goals:===================================================================================================================================================================================================================================================================
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+
 Basic Text Editing: Implement core text editing features such as opening files, inserting, deleting, and saving text.
 
 Navigation: Provide efficient navigation within the text file, including moving the cursor.
 
 File Management: Allow users to open, edit, and save files from within the editor.
 
+
 Secondary Goals:=================================================================================================================================================================================================================================================================
 -------------------------------------------------------------------------------------------
+
 
 Syntax Hightlighting:== Introduce basic syntax highlightinig for basic text editing.
 
@@ -37,7 +42,9 @@ Undo/Redo Functionality: Implement a simple undo/redo mechanism to enhance editi
 
 Cross-Platform Compatibility: Ensure that the text editor can be compiled and run on major operating systems. (Linux, macOS, Windows).
 
+
 Scope: ==========================================================================================================================================================================================================================================================================
+
 
 Core Features: Implement essential text editing functions, including file handling, text manipulation, and navigation.
 
@@ -47,7 +54,10 @@ CLI Integration: Ensuring seamless operation from the command line with support 
 
 Basic Syntax Highlighting: Develop a system for highlighting syntax in supported languages.
 
+
 Development Phase:==
+
+
 Editor Core: Develop the core editing functionalities, including text manipulation, file handling, and navigation.
 
 User Interface: Implement a basic terminal-based UI, ensuring a clean and intuitive experience.
@@ -73,5 +83,30 @@ Version Control: Git for source code management.
 
 Testing : Custom test cases and <assert.h> library for testing and assurance.
 
+
 Team Roles: ==
 
+
+Lead Developer: responsible for the overall architecture and implementation of the terminal text editor.
+C Developer: Implementation of core features, text I/O, and file handling.
+QA Engineer: Test the editor thorougly to ensure it meets all requirements.
+Techinical Writer: Document the codebase and create user manuals by <emmaculate likinyo>
+
+
+Timeline:==
+
+Phase /Duration: 2 weeks and 3 days.
+Requirement : 2 weeks.
+Design phase: 2 days.
+Develoment phase: 1 week and 4 days.
+Testing and Improvement: 4 days.
+Optimazation/compilation : 1 day.
+Documentation: 1 day.
+
+Total : 17 days
+
+Expected Outcome:==
+
+A fully functional lightweight text editor built using the C programming language, capable of handling basic text formatting like reading, writing and saving buffer to files.
+
+A user-friendly terminal interface that allows for easy text manipulation and navigation.
