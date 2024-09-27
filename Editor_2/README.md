@@ -105,6 +105,12 @@ Documentation: 1 day.
 
 Total : 17 days
 
+Usage:===
+
+generate an executable using the makefile
+then run the executable using the below steps
+<program name> <filename>
+
 Expected Outcome:==
 
 A fully functional lightweight text editor built using the C programming language, capable of handling basic text formatting like reading, writing and saving buffer to files.
