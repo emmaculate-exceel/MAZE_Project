@@ -110,3 +110,4 @@ Expected Outcome:==
 A fully functional lightweight text editor built using the C programming language, capable of handling basic text formatting like reading, writing and saving buffer to files.
 
 A user-friendly terminal interface that allows for easy text manipulation and navigation.
+
